@@ -53,22 +53,20 @@ Node<TYPE>* SinglyLinked<TYPE>::insertAtFront(const TYPE& data) {
 }
 
 /*
-** This function has a linear runtime. We must loop through while loop 'n' times, where 'n' is the number of nodes in list
+** This function has a runtime O(1) ...constant
 */
 template <class TYPE>
 Node<TYPE>* SinglyLinked<TYPE>::insertAtBack(const TYPE& data) {
   Node<TYPE>* nn = new Node<TYPE>(data);
 
   //for(Node<TYPE>* curr = first_;curr->next_;curr=curr->next_); //curr points to the same Node as first points to
-  if(first_) {
-    Node<TYPE>* curr = first_; //same as above, but more readable
-    while(curr->next_) {
-      curr = curr->next_;
-    }
-    curr->next_ = nn; //last node points to a new one created Node
+
+  if(first_ == NULL) {
+    first_ = last_ = nn;
   }
   else {
-    first_ = nn;
+    last_->next_ = nn;
+    last_ = nn;
   }
 
   return nn;
