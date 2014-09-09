@@ -1,4 +1,6 @@
 //Linked list implementation
+#include <iostream>
+using namespace std;
 
 template <class TYPE>
 struct Node {
@@ -45,8 +47,7 @@ Node<TYPE>* SinglyLinked<TYPE>::insertAtFront(const TYPE& data) {
 }
 
 /*
-** This function has a constant runtime. Doesn't matter how many nodes are in the linked list,
-** this function has number of operations regardless of size of list
+** This function has a linear runtime. We must loop through while loop 'n' times, where 'n' is the number of nodes in list
 */
 template <class TYPE>
 Node<TYPE>* SinglyLinked<TYPE>::insertAtBack(const TYPE& data) {
@@ -62,5 +63,14 @@ Node<TYPE>* SinglyLinked<TYPE>::insertAtBack(const TYPE& data) {
   }
   else {
     first_ = nn;
+  }
+}
+
+template <class TYPE>
+void SinglyLinked<TYPE>::print() const {
+  Node<TYPE>* curr = first_;
+  while(curr->next_) {
+    cout << curr->data_ << endl;
+    curr = curr->next_;
   }
 }
