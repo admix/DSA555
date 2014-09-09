@@ -6,6 +6,7 @@ template <class TYPE>
 struct Node {
   TYPE data_;
   Node<TYPE>* next_;
+
   Node(const TYPE& data, Node<TYPE>* n = NULL) {
     data_ = data;
     next_ = n;
@@ -16,6 +17,7 @@ struct Node {
 template <class TYPE>
 class SinglyLinked {
   Node<TYPE>* first_;  //header node
+  Node<TYPE>* last_;
 
 public:
   Node<TYPE>* first() const {return first_;}
@@ -42,8 +44,12 @@ public:
 */
 template <class TYPE>
 Node<TYPE>* SinglyLinked<TYPE>::insertAtFront(const TYPE& data) {
-  Node<TYPE>* nn = new Node(data, first_);
+  Node<TYPE>* nn = new Node<TYPE>(data, first_);
+  if(first_ == NULL) {
+    last_ = nn;
+  }
   first_ = nn;
+  return nn;
 }
 
 /*
@@ -51,12 +57,12 @@ Node<TYPE>* SinglyLinked<TYPE>::insertAtFront(const TYPE& data) {
 */
 template <class TYPE>
 Node<TYPE>* SinglyLinked<TYPE>::insertAtBack(const TYPE& data) {
-  Node<TYPE>* nn = new Node(data);
+  Node<TYPE>* nn = new Node<TYPE>(data);
 
   //for(Node<TYPE>* curr = first_;curr->next_;curr=curr->next_); //curr points to the same Node as first points to
   if(first_) {
     Node<TYPE>* curr = first_; //same as above, but more readable
-    while(curr->nexxt_) {
+    while(curr->next_) {
       curr = curr->next_;
     }
     curr->next_ = nn; //last node points to a new one created Node
@@ -64,12 +70,14 @@ Node<TYPE>* SinglyLinked<TYPE>::insertAtBack(const TYPE& data) {
   else {
     first_ = nn;
   }
+
+  return nn;
 }
 
 template <class TYPE>
 void SinglyLinked<TYPE>::print() const {
   Node<TYPE>* curr = first_;
-  while(curr->next_) {
+  while(curr) {
     cout << curr->data_ << endl;
     curr = curr->next_;
   }
