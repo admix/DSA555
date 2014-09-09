@@ -13,6 +13,7 @@ private.pem
 *.exe
 *.o
 *.so
+*.out
 
 # Packages #
 ############
